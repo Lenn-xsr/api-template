@@ -14,16 +14,18 @@ npm install
 First add a new route in the `routes` folder, you can follow two bases for this API
 
 1. Creating a subfolder within the `routes` folder, the name of this folder will give the name of the endpoint, inside the folder you can organize the methods separately or as you prefer;
-
-    > ./routes/example/index.js
-
-2. Now you can create sub-routes following just the same logic as the first example, just create a folder to define the name of the route and add a standard index file or as many as you prefer;
-    > ./routes/example/index.js
-    > ./routes/example/another/index.js
-
+```
+    ./routes/example/index.js
+```
+2. Following the same logic as the first example, you can now create sub-routes. Simply create a folder to define the route name and add a standard index file or as many as you prefer;
+```
+    ./routes/example/index.js
+    ./routes/example/another-route/index.js
+```
 3. Just add a file in the `routes` folder, the file name will be the name of the endpoint and inside it can contain all the methods.
-    > ./routes/example.js
-
+```
+    ./routes/example.js
+```
 *Obs.: For the default route, add a file in the `routes` folder with the name `default`, it will be treated as `/` from your application**
 
 ### Base code of a route
