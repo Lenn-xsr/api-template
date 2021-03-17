@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const router = express.Router();
 const PORT = process.env.PORT || 9000;
 
 const { readdirSync, statSync } = require("fs");
@@ -11,20 +12,40 @@ const walkSync = (d) =>
     ? readdirSync(d).map((f) => walkSync(path.join(d, f)))
     : d.padStart(d.length + 2, "./");
 
-const files = walkSync(routesPath);
+function walkRoutes(fileArray) {
+  fileArray.forEach((file) => {
+    if (typeof file === "object") walkRoutes(file);
+    else {
+      const route = require(file);
+      for (const method in route) {
+        app.use(
+          "/",
+          router[method](
+            path.parse(file).dir.replace(routesPath, ""),
+            route[method]
+          )
+        );
+      }
+    }
+  });
+}
 
-files.forEach((file) => {
-  if (typeof file === "object")
-    file.forEach((dirFile) =>
-      app.use(path.parse(dirFile).dir.replace(routesPath, ""), require(dirFile))
-    );
-  else
-    app.use(
-      path.parse(file).name.toLowerCase() === "default"
-        ? "/"
-        : "/" + path.parse(file).name.replace(" ", "-"),
-      require(file)
-    );
+walkSync(routesPath).forEach((file) => {
+  if (typeof file === "object") walkRoutes(file);
+  else {
+    const route = require(file);
+    for (const method in route) {
+      app.use(
+        "",
+        router[method](
+          path.parse(file).name.toLowerCase() === "default"
+            ? "/"
+            : "/" + path.parse(file).name.replace(" ", "-"),
+          route[method]
+        )
+      );
+    }
+  }
 });
 
 app.listen(PORT);

@@ -15,9 +15,13 @@ First add a new route in the `routes` folder, you can follow two bases for this 
 
 1. Creating a subfolder within the `routes` folder, the name of this folder will give the name of the endpoint, inside the folder you can organize the methods separately or as you prefer;
 
-    > ./routes/example/get.js
- 
-2. Just add a file in the `routes` folder, the file name will be the name of the endpoint and inside it can contain all the methods.
+    > ./routes/example/index.js
+
+2. Now you can create sub-routes following just the same logic as the first example, just create a folder to define the name of the route and add a standard index file or as many as you prefer;
+    > ./routes/example/index.js
+    > ./routes/example/another/index.js
+
+3. Just add a file in the `routes` folder, the file name will be the name of the endpoint and inside it can contain all the methods.
     > ./routes/example.js
 
 *Obs.: For the default route, add a file in the `routes` folder with the name `default`, it will be treated as `/` from your application**
@@ -26,14 +30,15 @@ First add a new route in the `routes` folder, you can follow two bases for this 
 Every route must follow this model:
 
 ```js
-const router = require("express").Router();
-
-router.get("/", (req, res) => {
-  res.send("This is an example of default route.");
-});
-
-module.exports = router;
-
+module.exports = {
+  get: (req, res) => {
+    res.send("This is an example route.");
+  },
+  post: (req, res) => {
+    res.sendStatus(200);
+  },
+  // Other method here...
+};
 ```
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

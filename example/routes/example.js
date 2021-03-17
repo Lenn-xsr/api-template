@@ -1,7 +1,8 @@
-const router = require("express").Router();
-
-router.get("/", (req, res) => {
-  res.send("This is an example route.");
-});
-
-module.exports = router;
+module.exports = {
+  get: (req, res) => {
+    res.send("This is an example route.");
+  },
+  post: (req, res) => {
+    res.sendStatus(200);
+  },
+};
