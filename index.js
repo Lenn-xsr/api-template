@@ -1,6 +1,6 @@
-const {Router}, express = require("express")
+const express = require("express")
 const app = express()
-const router = Router()
+const router = express.Router()
 const PORT = process.env.PORT || 9000
 
 const { readdirSync, statSync } = require("fs")
